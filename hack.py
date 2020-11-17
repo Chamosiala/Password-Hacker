@@ -38,5 +38,5 @@ with socket.socket() as client_socket:
             elif response["result"] == 'Connection success!':
                 guessing_password = False
                 break
-    print(json_input)
+print(json_input)
     
