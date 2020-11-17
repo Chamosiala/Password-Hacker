@@ -23,7 +23,7 @@ with socket.socket() as client_socket:
                         guessing_login = False
                         break
                 break
-        guessing_password = True
+    guessing_password = True
     while guessing_password:
         for pw_character in itertools.product(symbols, repeat=1):
             pw_character = ''.join(pw_character)
